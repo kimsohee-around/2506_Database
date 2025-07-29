@@ -108,30 +108,6 @@ SELECT * FROM TBL_CARCO2
  -- 7. car 중 T ~ Z 사이 단어로 시작하는 칼럼
  SELECT * FROM TBL_CARCO2 WHERE CAR BETWEEN 'T%' AND 'Z%';
 
--------------------  박노준(index 컬럼을 정의)
-
--- 모든 차량 정보를 조회해오게
-SELECT * FROM TBL_CARDATA;
-
--- 모든 차량의 제조사만 긁어오시게
-SELECT car FROM TBL_CARDATA;
-
--- 차량 제조사와 모델명을 함께 출력하시게
-SELECT car, model FROM TBL_CARDATA;
-
--- 인덱스값이 21인 차량의 정보를 출력해오게
-SELECT * FROM TBL_CARDATA WHERE idx = 21;
-
--- 제조사가 Ford인 차량 정보를 조회해오시게
-SELECT * FROM TBL_CARDATA WHERE car = 'Ford';
-
--- 제조사가 'Mercedes'인 차량을 부분 문자열로 포함한 차량들을 찾아보시게
-SELECT * FROM TBL_CARDATA WHERE car LIKE '%Mercedes%';
-
--- 제조사가 A로 시작하는 차량을 골라오시게
-SELECT * FROM TBL_CARDATA WHERE car LIKE 'A%';
-
-
 -------------------  임민수
 --배기량(Volume) 1500이상인 데이터를 모두 조회
 SELECT * FROM TBL_CARCO2 WHERE volume >= 1500;
@@ -220,3 +196,26 @@ SELECT LOWER(car) AS car_lower FROM tbl_carco2;
 
 -- 모든 차량의 CO2 배출량에 대해, 절댓값 기준 100과의 차이를 계산해서 출력하시오.
 SELECT car, model, co2, ABS(co2 - 100) AS ANSWER FROM tbl_carco2;
+
+-------------------  박노준(index 컬럼을 정의, 테이블명 )
+
+-- 모든 차량 정보를 조회해오게
+SELECT * FROM TBL_CARDATA;
+
+-- 모든 차량의 제조사만 긁어오시게
+SELECT car FROM TBL_CARDATA;
+
+-- 차량 제조사와 모델명을 함께 출력하시게
+SELECT car, model FROM TBL_CARDATA;
+
+-- 인덱스값이 21인 차량의 정보를 출력해오게
+SELECT * FROM TBL_CARDATA WHERE idx = 21;
+
+-- 제조사가 Ford인 차량 정보를 조회해오시게
+SELECT * FROM TBL_CARDATA WHERE car = 'Ford';
+
+-- 제조사가 'Mercedes'인 차량을 부분 문자열로 포함한 차량들을 찾아보시게
+SELECT * FROM TBL_CARDATA WHERE car LIKE '%Mercedes%';
+
+-- 제조사가 A로 시작하는 차량을 골라오시게
+SELECT * FROM TBL_CARDATA WHERE car LIKE 'A%';
