@@ -108,7 +108,7 @@ SELECT * FROM TBL_CARCO2
  -- 7. car 중 T ~ Z 사이 단어로 시작하는 칼럼
  SELECT * FROM TBL_CARCO2 WHERE CAR BETWEEN 'T%' AND 'Z%';
 
--------------------  박노준
+-------------------  박노준(index 컬럼을 정의)
 
 -- 모든 차량 정보를 조회해오게
 SELECT * FROM TBL_CARDATA;
@@ -182,27 +182,27 @@ SELECT MODEL FROM TBL_CARCO2
        WHERE VOLUME >= 2000 AND WEIGHT < 1500 AND CO2 < 100;
 
 -------------------  양상민
---카로고에 모델이 도요타 데이터 찾기
-SELECT * FROM TBL_CAROCO2 
+--TBL_CARCO2 에 모델이 도요타 데이터 찾기
+SELECT * FROM TBL_CARCO2 
 WHERE MODEL = 'Aygo';
 --카로고에 볼룸이 1500 이하 같은거 찾기
-SELECT * FROM TBL_CAROCO2 WHERE VOLUME >= 1500;
+SELECT * FROM TBL_CARCO2 WHERE VOLUME >= 1500;
 --  : model 값이 알파벳 d 로 시작하는 행을 조회
-SELECT * FROM TBL_CAROCO2 WHERE MODEL LIKE 'M%';
+SELECT * FROM TBL_CARCO2 WHERE MODEL LIKE 'M%';
 
 --between , in 연산
-SELECT * FROM TBL_CAROCO2
+SELECT * FROM TBL_CARCO2
 WHERE CO2 IN(95,99,105);
 
-SELECT * FROM TBL_CAROCO2
+SELECT * FROM TBL_CARCO2
 WHERE MODEL LIKE 'A1%';
 -- 조건식 사용 연산 : <, > , <=, >= , and ,or 
-SELECT * FROM TBL_CAROCO2
+SELECT * FROM TBL_CARCO2
 WHERE MODEL > 'Audi';
 -- 일부 행추출 1)전체 행 (조건이 없을떄)2)조건에 맞는행
-SELECT * FROM TBL_CAROCO2
+SELECT * FROM TBL_CARCO2
 WHERE C02 > 95;
-SELECT * FROM TBL_CAROCO2
+SELECT * FROM TBL_CARCO2
 WHERE MODEL BETWEEN 6 AND 9;
 
 -------------------  오승현
