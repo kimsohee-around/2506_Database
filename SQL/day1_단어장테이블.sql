@@ -2,24 +2,27 @@
  * 자바에서 파일에 저장했었던 '단어장' 을 위한 테이블 만들기
  * 
  * 0. 테이블 이름 : tbl_javaword
- * 1. 테이블 컬럼 : 
+ * 1. 테이블 컬럼(속성) : 
  * 			idx (순서)               : number
  * 			english (영어 키워드)     : varchar2(100)
  * 			korean (한글 뜻)         : varchar2(500)
  * 			step (수준,레벨)         : char(1)
  * 
- * 2. insert 명령으로 샘플값을 추가
+ * 2. insert 명령으로 샘플값(행)을 추가
+             INSERT INTO 테이블명(컬럼명 나열) VALUES (값 나열);
  */
--- 1) DDL
+-- 1) DDL 
+-- 새로운 테이블 tbl_javaword 이름으로 만들기(속성,컬럼 정의)
 CREATE TABLE tbl_javaword (
 		idx number(10),
-		english varchar2(100),
-		korean varchar2(500),
-		step char(1)
+		english varchar2(100),   --varchar2는 가변길이. 최대 100바이트
+		korean varchar2(500),    --										  최대 500바이트
+		step char(1)						 -- char 는 고정길이. 반드시 1바이트
 );
 
 -- 2) DML
--- insert 형식1 : 컬럼명 안쓸때는 모든값을 컬럼정의 순서대로 나열
+-- insert : 행(row) 추가
+-- insert 형식1 : 컬럼명 안쓸때는 모든 컬럼을 지정.값은 '모든값을 컬럼 정의 순서대로' 나열
 INSERT INTO TBL_JAVAWORD VALUES (
 		1,
 		'public',
@@ -31,7 +34,7 @@ INSERT INTO TBL_JAVAWORD (ENGLISH ,KOREAN)
 	   VALUES ('private','사적인');	
 -- 값이 없는 컬럼 idx,step 은 null 상태 입니다.	  
 
-INSERT INTO TBL_JAVAWORD VALUES (
+INSERT INTO TBL_JAVAWORD(idx,english,korean,step) VALUES (
 		3,
 		'deprecated',
 		'비난하다.반대하다.',
@@ -85,6 +88,12 @@ INSERT INTO TBL_JAVAWORD VALUES (
 	'이중의',
 	1
 );
+/*
+			insert, update ,delete 는 테이블의 데이터를 추가/수정/삭제로 변경작업입니다.
+			autocommit 이 false 일 때는 바로 반영이 안됩니다.
+			commit 명령어로 변경완료해야 합니다.
+*/
+commit;
 
 
 -- 데이터 조회 : SELECT 명령어로 지정된 컬럼 또는 행을 추출(검색)
@@ -94,12 +103,12 @@ INSERT INTO TBL_JAVAWORD VALUES (
  *   [where 컬럼명=값 (조건식)]
  */
 
--- 모든 컬럼과 모든 행 가져오기
+-- 모든 컬럼 (*) 과 모든 행(where 없음) 가져오기
 SELECT * FROM TBL_JAVAWORD ;
 
--- 일부 컬럼 추출
-SELECT english FROM TBL_JAVAWORD ;   -- 전체 행
-SELECT english,STEP  FROM TBL_JAVAWORD ;  -- 전체 행
+-- 모든 행의 '일부' 컬럼 추출
+SELECT english FROM TBL_JAVAWORD ;   -- 전체 행 english 컬럼 조회
+SELECT english,STEP  FROM TBL_JAVAWORD ;  -- 전체 행 english,STEP 컬럼 조회
 
 -- 일부 행 추출 : 1) 전체 행(조건이 없을 때)  2) 조건에 맞는 행 
 SELECT * FROM TBL_JAVAWORD      -- 모든 컬럼
@@ -109,15 +118,16 @@ SELECT * FROM TBL_JAVAWORD      -- 모든 컬럼
 SELECT * FROM TBL_JAVAWORD 
 		 WHERE idx=4;
 		
--- 예시 2 : idx 값이 null 인 행을 조회
+-- 예시 2 : idx 값이 null 인 행을 조회. null 값은 = 아니고 is 로 조회
 SELECT * FROM TBL_JAVAWORD 
-		 WHERE idx IS null;		
+		 WHERE idx IS null;		  
 		 
 -- 예시 3 : english 값이 'private' 인 행을 조회
 SELECT * FROM TBL_JAVAWORD 
 		 WHERE ENGLISH ='private';
 		
--- 예시 4 : korean 값에 '반대' 포함 (like와 %) 한 행을 조회		 
+-- 예시 4 : korean 값에 '반대' 포함한 문자열.  
+-- (like와 %) 	LIKE '반대%'  는 '반대'로 시작하는 , LIKE '%반대' 는 '반대'로 끝나는 조건
 SELECT * FROM TBL_JAVAWORD 
 		 WHERE KOREAN LIKE '%반대%';
 
@@ -148,25 +158,26 @@ SELECT * FROM TBL_JAVAWORD
 
  SELECT * FROM TBL_JAVAWORD 
  		 WHERE idx IS NOT NULL;
- 		
-		
--- 문제 만들기
- 		SELECT * FROM TBL_JAVAWORD 
- 				WHERE idx > 5;
- 		SELECT * FROM TBL_JAVAWORD 
- 				WHERE idx <= 5;	
+ 				
 -- 크다,작다 연산 null 값은 제외.
+SELECT * FROM TBL_JAVAWORD 
+ 				WHERE idx > 5;
+SELECT * FROM TBL_JAVAWORD 
+ 				WHERE idx <= 5;	
 
 -- 2개 이상의 컬럼으로 조건식 만들기 가능합니다. : and, or
 SELECT * FROM TBL_JAVAWORD 
 		WHERE ENGLISH LIKE 'd%' AND step =1;
  			
 -- 문자열 함수 : length, upper, lower, substr , replace, instr...
--- 컬럼 값에 적용하여 조회하기 			
-SELECT UPPER(english), LENGTH(english)
+-- 컬럼 값에 적용하여 조회하기. 
+-- 함수 실행 결과로 새로운 컬럼이 만들어 집니다. as 를 사용하여 컬럼의 별칭을 정합니다.
+select english from TBL_JAVAWORD;
+SELECT english , UPPER(english) as "대문자", LENGTH(english) as "길이"
 	FROM TBL_JAVAWORD ;
 
 
+-- 내일 설명
 --  where 조건을 활용하는 명령 : update, delete
 --  데이터의 수정 update 
 
@@ -189,6 +200,9 @@ DELETE FROM TBL_JAVAWORD
 -- update, delete 에 where 없이 사용하는 것은 위험한 작업
 --			ㄴ 조건에 맞는 컬럼 또는 행에 적용되어야 합니다.
 
--- 전체 데이터 삭제
+-- 전체 데이터 삭제 : rollback 못함.
 TRUNCATE TABLE TBL_JAVAWORD ;
- 			
+
+show autocommit; 			   -- 현재 상태 OFF
+
+ROLLBACK;      -- 방금한(?) 명령(insert, update, delete 명령을 취소.)
