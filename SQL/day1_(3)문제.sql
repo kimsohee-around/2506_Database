@@ -3,15 +3,18 @@
   (SELECT ~ FROM tbl_carco2 WHERE 조건) 
   각자 7개씩.  
 */
--- (샘플) volume 이 1500 이상인 모든 컬럼 조회
-select * FROM TBL_CARCO2 WHERE VOLUME >= 1500;
+-- (샘플) volume 이 2000 이상인 모든 컬럼 조회
+select * FROM TBL_CARCO2 WHERE VOLUME >= 2000;
+
+-- 저공해차. 2000 이상의 배기량 이며 co2 는 100미만
+SELECT car, model FROM TBL_CARCO2 WHERE VOLUME >= 2000 AND co2 <100 ;
+
+-- distinct 키워드 : 컬럼값 하나 조회할 때, 중복을 제거한 결과
+select car from tbl_carco2;    -- 31행 조회
+select distinct car from tbl_carco2;  -- 18행 조회. car 가 무엇이 있나요? 
 
 
-
-
-
-
-
+-- 테이블 정의(create table) 와 데이터 행 추가(insert)
 create table tbl_carco2 (
   car VARCHAR2(20),
   model VARCHAR2(20),
