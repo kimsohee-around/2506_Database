@@ -11,3 +11,16 @@
   * ㄴ java.sql 패키지의 인터페이스들을 구현한 클래스 로드가 필요합니다.
   * ㄴ oracle.jdbc.driver.OracleDirver 클래스는 자동 로딩.
   * 참고 : mysql 의 드라이버 클래스는 com.mysql.jdbc.Driver 입니다.
+
+## SQL 실행
+
+### 첫번째 테스트 SQL
+
+```
+INSERT INTO tbl_javadict(idx,english,korean,step) VALUES (
+		 33,
+		'connection',
+		'연결,접속',
+		'2'
+);	
+```

@@ -34,4 +34,14 @@ public class OracleConnection {
       System.out.println("오라클 db close 실패 : " + e.getMessage());
     }
   }
+
+  // Connection 생성 테스트
+  public static void main(String[] args) {
+    Connection conn = getConnection();
+    System.out.println("Connection 객체 생성 상태 : " + conn); // null 아닌 참조값
+    System.out.println("Connection 구현 클래스 : " + conn.getClass().getName());
+
+    // Connection 객체 생성 상태 : oracle.jdbc.driver.T4CConnection@262b2c86
+    // Connection 구현 클래스 : oracle.jdbc.driver.T4CConnection
+  }
 }
