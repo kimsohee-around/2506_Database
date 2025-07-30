@@ -8,3 +8,6 @@
      오라클 드라이버 라이브러리 경로 : C:\app\Class01\product\18.0.0\dbhomeXE\jdbc\lib
             드라이버 파일명 : ojdbc8.jar 
 * 자바의 java.sql 패키지에 포함되어 있음
+  * ㄴ java.sql 패키지의 인터페이스들을 구현한 클래스 로드가 필요합니다.
+  * ㄴ oracle.jdbc.driver.OracleDirver 클래스는 자동 로딩.
+  * 참고 : mysql 의 드라이버 클래스는 com.mysql.jdbc.Driver 입니다.
