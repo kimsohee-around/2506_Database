@@ -2,6 +2,8 @@
 시퀀스 sequence : 연달아 일어남,일련의 연속
            자동으로 값을 생성해 줍니다. 정수값을 일정간격(대부분 1) 으로 증가시키면서 생성. 
           ✅ 시퀀스를 이용하여 기본키의 값을 자동생성 합니다.
+
+[참고] mysql 은 시퀀스는 없고 컬럼에 auto increment 설정.
 */
 
 CREATE SEQUENCE test_seq;
@@ -53,6 +55,11 @@ VALUES (TEST2_SEQ.nextval,'Ford', 'Fiesta', 1500, 1112, 98);
 INSERT INTO TBL_CAR_CO2(IDX,CAR,MODEL,VOLUME,WEIGHT,CO2) 
 VALUES (TEST2_SEQ.nextval,'Ford', 'Fiesta', 1000, 1112, 99);
 
+INSERT INTO TBL_CAR_CO2(IDX, CAR,MODEL,VOLUME,WEIGHT,CO2) 
+ VALUES (TEST2_SEQ.nextval,'Opel', 'Zafira', 1600, 1405, 109);
+INSERT INTO TBL_CAR_CO2(IDX, CAR,MODEL,VOLUME,WEIGHT,CO2) 
+VALUES(TEST2_SEQ.nextval,'Mercedes', 'SLK', 2500, 1395, 120);
+
 SELECT *
 FROM TBL_CAR_CO2;
 
@@ -65,3 +72,7 @@ DROP SEQUENCE test2_seq;     -- 시퀀스 삭제
 CREATE SEQUENCE test2_seq
 START WITH 1001;
 -- insert 실행
+
+-- 참고 : autocommit 설정 또는 commit 명령 실행이 불편하다.
+--> connection 설정 Advanced 에서 Auto Commit 을 체크 ✔
+
