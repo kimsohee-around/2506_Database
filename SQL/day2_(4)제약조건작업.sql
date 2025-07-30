@@ -45,10 +45,18 @@ ALTER TABLE tbl_javadict2 ADD PRIMARY KEY (idx);
 
 -- tbl_javadict3 테이블을 만듭니다. tbl_javadict 와 동일하게 합니다.
 -- 단, 제약 조건 이름을 직접 정의하는 형식으로 해보세요. (PK,UNIQUE,CHECK )
+--               ㄴ 컬럼 레벨(가독성 X), 테이블 레벨(⭕)
 
 CREATE TABLE tbl_javadict3 (
-		idx number(10) PRIMARY KEY,
-		english varchar2(100) NOT NULL UNIQUE,   
-		korean varchar2(500) NOT NULL,    
-		step char(1) CHECK (step BETWEEN '1' AND '3')						 
+		idx number(10)  ,
+		english varchar2(100) NOT NULL ,   
+		korean varchar2(500) ,    
+		step char(1) ,
+    CONSTRAINT nn_javadict3_kor CHECK (KOREAN IS NOT NULL),
+    CONSTRAINT pk_javadict3_idx PRIMARY KEY (idx),
+    CONSTRAINT uq_javadict3_eng UNIQUE (english),
+    CONSTRAINT chk_javadict3_step CHECK (step BETWEEN '1' AND '3')
 );
+
+-- 테이블 삭제하고 싶다면
+DROP TABLE tbl_javadict3;

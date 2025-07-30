@@ -97,13 +97,6 @@ INSERT INTO tbl_javadict VALUES (
 );
 
 INSERT INTO tbl_javadict VALUES (
-	8,
-	'order',
-	'순서',
-	1
-);
-
-INSERT INTO tbl_javadict VALUES (
 	9,
 	'reverse',
 	'반대로',
