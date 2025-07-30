@@ -1,19 +1,19 @@
 -- 1. 수치값 함수(정수 또는 실수 number를 대상으로 하는 함수)
 
 -- (1) 결과값 소수점 있는 실수	
--- trunc(수치값,자리수) : 소수점 이하 자리수 맞추기 위해서 버림   3.177567  -> 3.17
-SELECT trunc(3.177567,2) FROM dual;
+-- TRUNC(수치값,자리수) : 소수점 이하 자리수 맞추기 위해서 버림   3.177567  -> 3.17
+SELECT TRUNC(3.177567,2) FROM dual;
 
 -- round(수치값,자리수) :                  반올림  3.177567 -> 3.18
-SELECT round(3.177567,2) FROM dual; 
+SELECT ROUND(3.177567,2) FROM dual; 
 SELECT round(3.177567,0) FROM dual;    -- 소수점 자리수 0 -> 정수 
 SELECT round(3.577567,0) FROM dual;
 
 -- (2) 결과값 정수
--- ceil(수치값) : 실수를 `정수`로 올림으로 변환.   ceil:천장
+-- CEIL(수치값) : 실수를 `정수`로 올림으로 변환.   ceil:천장
 SELECT ceil(3.177567) FROM dual;		-- 결과값 : 4
 
--- floor(수치값) : 실수를 `정수`로 내림으로 변환.  floor : 바닥
+-- FLOOR(수치값) : 실수를 `정수`로 내림으로 변환.  floor : 바닥
 SELECT floor(3.177567) FROM dual;		-- 결과값 : 3
 
 
