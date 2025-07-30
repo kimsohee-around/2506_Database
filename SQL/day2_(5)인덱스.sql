@@ -46,7 +46,7 @@ WHERE car='Hyundai' AND model='I20';
 
 -- 인덱스를 기본키 컬럼 외에 추가적인 생성하기
 --       중복된 값이 최소인 컬럼. 검색이 많은 컬럼......
--- 실제 검색에 korean 컬럼이 많이 쓰인다. unique 컬럼은 아니다.
+-- 실제 검색에 korean 컬럼(unique 컬럼은 아니다.)이 많이 쓰인다.
 SELECT *
 FROM tbl_javadict
 where KOREAN = '순서'; 
