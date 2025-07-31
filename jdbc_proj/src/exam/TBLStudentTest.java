@@ -36,7 +36,7 @@ public class TBLStudentTest {
 
       pstat.setString(1, stuno);
       pstat.setString(2, name);
-      pstat.setString(3, age); // setInt(3,null) 불가.
+      pstat.setString(3, age); // setInt(3,null) 불가. 오라클에서는 문자열을 number 타입으로 자동캐스팅
       pstat.setString(4, address);
       pstat.execute();
       // conn.commit();
