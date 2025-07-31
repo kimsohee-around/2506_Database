@@ -1,6 +1,7 @@
 package exam;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
@@ -9,7 +10,7 @@ import util.OracleConnection;
 public class TBLStudentTest {
 
   public static void main(String[] args) {
-    updateAddress("2025005", "서울시 구로구 구로동");
+    updateAddress("2025005", "서울시 구로구 구로동2222");
   }
 
   public static void addStudent() {
@@ -35,7 +36,8 @@ public class TBLStudentTest {
 
     String sql = "update tbl_student set address = ? where stuno = ?";
     try ( // try with resources : 자동 close
-        Connection connection = OracleConnection.getConnection();
+        Connection connection = DriverManager.getConnection(OracleConnection.URL, OracleConnection.USERNAME,
+            OracleConnection.PASSWORD);
         PreparedStatement pstat = connection.prepareStatement(sql);) {
       connection.setAutoCommit(false);
       pstat.setString(1, address);
@@ -53,6 +55,7 @@ public class TBLStudentTest {
     String sql = "insert into tbl_student(stuno,name,age,address) values (?,?,?,?)";
     try {
       conn.setAutoCommit(false);
+      // ✅ 직접 commit 을 해야 테이블에 반영. '오라클'은 commit 은 자동, rollback 은 명령어로.
       System.out.println("conn :" + conn.getAutoCommit());
       pstat = conn.prepareStatement(sql);
 
@@ -61,12 +64,12 @@ public class TBLStudentTest {
       pstat.setString(3, age); // setInt(3,null) 불가. 오라클에서는 문자열을 number 타입으로 자동캐스팅
       pstat.setString(4, address);
       pstat.executeUpdate();
-      // conn.rollback();
+      // conn.rollback(); -- insert 명령이 테이블에 반영이 안됩니다.
       System.out.println("1개 행이 저장되었습니다.");
     } catch (SQLException e) {
       System.out.println("insert 예외 : " + e.getMessage());
     } finally {
-      // OracleConnection.close(conn);
+      // OracleConnection.close(conn); // close 가 없으면 세션이 유지. commit 안됨.
       try {
         if (pstat != null)
           pstat.close();

@@ -7,9 +7,9 @@ import java.sql.SQLException;
 public class OracleConnection {
   // jdbc:oracle:thin: 는 jdbc 통신 프로토콜.
   // 참고로 mysql 은 jdbc:mysql://localhost:3306/데이터베이스이름
-  private static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
-  private static final String USERNAME = "c##idev";
-  private static final String PASSWORD = "1234";
+  public static final String URL = "jdbc:oracle:thin:@//localhost:1521/xe";
+  public static final String USERNAME = "c##idev";
+  public static final String PASSWORD = "1234";
 
   // Connection 은 인터페이스 타입. 드라이버 클래스를 통한 객체 생성은 DriverManager 가 실행함.
   // 생성된 객체 리턴. Connection 객체를 통해 SQL 실행합니다.
