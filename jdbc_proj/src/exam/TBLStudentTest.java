@@ -10,7 +10,8 @@ import util.OracleConnection;
 public class TBLStudentTest {
 
   public static void main(String[] args) {
-    updateAddress("2025005", "서울시 구로구 구로동2222");
+    // updateAddress("2025005", "서울시 구로구 구로동2222");
+    addStudent();
   }
 
   public static void addStudent() {
@@ -63,13 +64,20 @@ public class TBLStudentTest {
       pstat.setString(2, name);
       pstat.setString(3, age); // setInt(3,null) 불가. 오라클에서는 문자열을 number 타입으로 자동캐스팅
       pstat.setString(4, address);
-      pstat.executeUpdate();
-      // conn.rollback(); -- insert 명령이 테이블에 반영이 안됩니다.
+
+      pstat.executeUpdate(); // 이 메소드는 commit 을 직접하지 않아도 close 할때 커밋을 수행합니다.
+      int test = Integer.parseInt(name); // rollback 테스트할 예외 발생
+
       System.out.println("1개 행이 저장되었습니다.");
-    } catch (SQLException e) {
-      System.out.println("insert 예외 : " + e.getMessage());
+    } catch (SQLException | NumberFormatException e) {
+      try {
+        conn.rollback();
+        System.out.println("롤백 했습니다.");
+        System.out.println("insert 예외 : " + e.getMessage());
+      } catch (SQLException e1) {
+      } // 오류 발생시 : insert 명령이 테이블에 반영안되도록 rollback 합니다.
     } finally {
-      // OracleConnection.close(conn); // close 가 없으면 세션이 유지. commit 안됨.
+      OracleConnection.close(conn); // close 가 없으면 세션이 유지. commit 안됨.
       try {
         if (pstat != null)
           pstat.close();
