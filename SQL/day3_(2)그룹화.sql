@@ -41,10 +41,11 @@ GROUP BY car
 HAVING round(avg(CO2)) < 100   -- HAVING 조건식에는 별칭 사용 못합니다.
 ORDER BY "CO2평균";
 
--- 문제 1: 
-
-
--- 문제 2: 
+-- 2개 이상 컬럼으로 그룹화
+SELECT CAR, MODEL, COUNT(*) AS "개수", ROUND(AVG(CO2)) AS "CO2 평균" 
+FROM TBL_CAR_CO2 
+GROUP BY CAR, MODEL;   -- car 컬럼에 동일한 값이 많고, model 컬럼도 동일한 값이 많을 때
+-- (CAR, MODEL) 페어. 1차 그룹화 car 컬럼, 1차 그룹 안에서 2차 그룹화 model 컬럼
 
 
 -- ✅ 복습 : 그룹화 연습을 위해 tbl_car_co2 에 행 데이터 변경(최종 31개)  
