@@ -1,14 +1,50 @@
 -- 그룹화 연습을 위해 tbl_car_co2 에 행 데이터 변경(최종 31개)  👇 아래 쪽에 있음.
+/*
+    그룹화 : 지정된 컬럼값이 같은 행들을 하나의 그룹으로 묶고
+             집계 함수를 그룹 단위로 적용.
+    지정된 컬럼은 그룹화 컬럼 : 대체로 같은 값이(중복) 많은 컬럼들이 대상이 됩니다.
+            그룹화 컬럼에 대해 집계 함수를 적용.
+
+            SELECT 그룹화컬럼, 함수(Number컬럼)
+            FROM 테이블명
+            [WHERE] 조건식(테이블의 모든 행/컬럼 대상으로 필터링)
+            [ORDER BY] 정렬 컬럼(그룹화 하기전에 정렬.- 의미없음)
+            GROUP BY 그룹화 컬럼 🔥
+            [HAVING] 조건식(그룹화 결과 행/컬럼만 대상으로 합니다.)
+            [ORDER BY] 정렬 컬럼(그룹화 후에 정렬);
+*/
+-- 그룹화 컬럼을 탐색하기위한 정렬
+SELECT *
+FROM TBL_CAR_CO2
+ORDER BY car;
+
+-- CAR 컬럼으로 그룹화 : 조회는 그룹화 컬럼 car, 함수를 적용한 결과 입니다.
+SELECT car, COUNT(*)
+FROM TBL_CAR_CO2
+GROUP BY car;
+
+-- avg 함수 실행이 가능한 모든 컬럼 사용
+SELECT car, round(avg(VOLUME)),round(avg(WEIGHT)),round(avg(CO2))
+FROM TBL_CAR_CO2
+GROUP BY car;
+
+-- 그룹화 하기 전에 조건식 (그룹화 대상이 되는 행)
+SELECT car, round(avg(VOLUME)),round(avg(WEIGHT)),round(avg(CO2))
+FROM TBL_CAR_CO2
+WHERE WEIGHT > 1200     -- 그룹화 대상 필터링
+GROUP BY car;
+
+-- 요구사항 : 자동차 브랜드별로 CO2 평균을 구하고 평균값이 100 미만 조회
+SELECT car, round(avg(CO2)) as "CO2평균"
+FROM TBL_CAR_CO2
+GROUP BY car
+HAVING round(avg(CO2)) < 100   -- HAVING 조건식에는 별칭 사용 못합니다.
+ORDER BY "CO2평균";
+
+-- 문제 1: 
 
 
-
-
-
-
-
-
-
-
+-- 문제 2: 
 
 
 -- ✅ 복습 : 그룹화 연습을 위해 tbl_car_co2 에 행 데이터 변경(최종 31개)  
