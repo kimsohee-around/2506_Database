@@ -4,6 +4,6 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "c:\\Class250615\\lib\\lombok.jar",
-        "c:\\Users\\Class01\\Downloads\\ojdbc11-23.4.0.24.05.jar"
+        "c:\\Users\\Class01\\Downloads\\ojdbc11.jar"
     ]
 }
