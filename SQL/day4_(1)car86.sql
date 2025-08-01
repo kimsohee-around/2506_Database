@@ -1,3 +1,8 @@
+/*
+  NCS 교재-응용SW 기초기술활용.pdf  (page 81~86)
+  vs code 확장 : ERD Editor 설치 
+  ERD 작성한 후 자동 생성된 SQL
+*/
 
 CREATE TABLE tbl_contract
 (
