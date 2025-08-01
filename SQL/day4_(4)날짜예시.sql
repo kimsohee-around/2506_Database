@@ -32,7 +32,7 @@ INSERT INTO
 	TBL_MEMBER(MNO,NAME) 
 VALUES 
 	(9,'이순신');
-	
+commit;	
 
 -- 날짜 컬럼으로 조회하기
 -- 2024년 1월1일 이후에 가입한 회원 조회 (정렬은 가입날짜 최신순)
@@ -56,17 +56,23 @@ ORDER BY JOIN_DATE DESC ;
 
 -- 🔥날짜 기본 함수 : 1) 날짜 타입을 문자열로 변환 to_char()    2) 문자열을 날짜타입으로 변환 to_date() 
 -- 2) 번 예시
-INSERT INTO TBL_MEMBER VALUES (10,'홍길동','gdHong@naver.com','20250104');  -- 오류? 
+-- 오라클에서 날짜 패턴 'yyyy-mm-dd','yyyymmdd','yyyy/mm/dd'
+INSERT INTO TBL_MEMBER VALUES (10,'홍길동','gdHong@naver.com','20250104');   
+INSERT INTO TBL_MEMBER VALUES (11,'홍길동2','gdHong2@naver.com','2025/01/04');
+INSERT INTO TBL_MEMBER VALUES (12,'홍길동3','gdHong3@naver.com','01/04/2025');  -- 오류
+INSERT INTO TBL_MEMBER VALUES (12,'홍길동3','gdHong4@naver.com','04-01-25');   -- yy-mm-dd
+INSERT INTO TBL_MEMBER VALUES (13,'홍길동4','gdHong3@naver.com','25/01/04');  -- 1925년
 SELECT * FROM TBL_MEMBER tm ;
 
 -- 시간 포함한 문자열은 to_date 함수 필요. 
 INSERT INTO TBL_MEMBER 
-VALUES (11,'홍길순','gsHong@naver.com',
+VALUES (99,'홍길순','gsHong@naver.com',
 		to_date('2025-01-04 16:24:23','yyyy-mm-dd hh24:mi:ss'));
 
 -- 회원들 가입날짜에서 가입시간을 추출
 SELECT to_char(join_date,'hh24:mi:ss') AS "jtime"   
 FROM TBL_MEMBER 
+WHERE name in ('이순신','홍길순')
 ORDER BY "jtime";	  -- 정렬 기준은 함수실행 결과
 
 
@@ -76,6 +82,13 @@ ORDER BY "jtime";	  -- 정렬 기준은 함수실행 결과
   WHERE TO_CHAR(JOIN_DATE,'yyyy') ='2023'
   ORDER BY JOIN_DATE ;
   
+  SELECT TO_CHAR(JOIN_DATE,'yyyy'),TO_CHAR(JOIN_DATE,'mm'),TO_CHAR(JOIN_DATE,'dd')
+  FROM TBL_MEMBER
+  ORDER BY JOIN_DATE ;
+
+  SELECT join_date
+  FROM TBL_MEMBER;
+  commit;
  
  
  
