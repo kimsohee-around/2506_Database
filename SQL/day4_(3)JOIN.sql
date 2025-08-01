@@ -83,3 +83,13 @@ WHERE  ts.STUNO = tg.STUNO;
 SELECT *
 FROM TBL_SCORE
 ORDER BY stuno;
+
+
+-- 2. JOIN 표준 :   SELECT ~ FROM 테이블1  JOIN 테이블2 ON 테이블1.공통컬럼 = 테이블2.공통컬럼
+SELECT stu.STUNO, stu.Name
+FROM TBL_STUDENT stu
+JOIN TBL_SCORE sco
+ON stu.STUNO=sco.STUNO and sco.JUMSU >=90 
+ORDER by stu.NAME;
+
+-- 3. OUTER JOIN(외부조인) : 지정된 테이블 하나는 공통컬럼 값을 모두 포함하도록 조인
