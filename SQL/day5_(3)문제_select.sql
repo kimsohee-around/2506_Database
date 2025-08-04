@@ -24,9 +24,18 @@ SELECT sum(quantity)
 from TBL_BUY
 where pcode='JINRMn5';
 
--- 문제 추가 : (1) pcode 별로 수량합계가 (2)가장 높은 순서대로 rank 구하기
+-- 문제 추가 : (step 1) pcode 별로 수량합계가 (step 2)가장 높은 순서대로 rank 구하기
+-- step 1
+select pcode, sum(quantity)
+from TBL_BUY
+GROUP BY pcode;
 
-
+-- step 2
+select pcode, 
+sum(quantity) as "sum",
+rank() over (order by sum(quantity) desc) as "rnk"   -- rank 구하는 값이 sum() 함수 결과값.
+from TBL_BUY
+GROUP BY pcode;
 
 --6.  customer_id 'mina012' 이 구매한 내용 조회
 SELECT *
@@ -49,7 +58,20 @@ select tc.CUSTOMER_ID, tc.NAME, tb.BUY_DATE
 from TBL_CUSTOMER# tc   -- 4개 행
 join TBL_BUY tb   -- 8개 행
 on tc.CUSTOMER_ID = tb.CUSTOMER_ID
-and to_char(tb.BUY_DATE,'yyyy')='2024';
+and to_char(tb.BUY_DATE,'yyyy')='2024';   -- extract(year from tb.BUY_DATE) ='2024'
+
+-- 문제 추가
+-- 1) 년도별 구매 건수 집계하기
+SELECT EXTRACT(YEAR FROM buy_date) AS "년도",  count(*) as "건수"
+FROM TBL_BUY tb 
+GROUP BY EXTRACT(YEAR FROM buy_date)
+ORDER BY "년도";
+
+-- 2) 년도별 and pcode 상품별(년도가 같을 때) 구매 건수 집계하기
+SELECT EXTRACT(YEAR FROM buy_date) AS "년도", PCODE ,count(*) as "년도/상품건수"
+FROM TBL_BUY tb 
+GROUP BY EXTRACT(YEAR FROM buy_date), PCODE  -- 년도 같을 때 pcode 로 2차 그룹화
+ORDER BY "년도",PCODE;
 
 --10. twice 가 구매한 상품과 가격, 구매금액을 조회하세요.
 -- 단, 구매금액 계산은 가격 * 구매 수량 수식으로 합니다.

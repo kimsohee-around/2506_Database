@@ -4,7 +4,7 @@ CREATE TABLE tbl_customer# (
 	customer_id varchar2(20) PRIMARY KEY ,    
 	name varchar2(20) NOT NULL,		   
 	email varchar2(30),
-	age number(3) ,		
+	age number(3) default 0 ,		
 	reg_date date 
 );
 
