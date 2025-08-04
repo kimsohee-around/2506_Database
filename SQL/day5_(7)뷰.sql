@@ -49,3 +49,6 @@ where total > 100000;
 
 select * from V_FINAL_SALE
 order by TOTAL desc;
+
+-- 프로그래머스 SQL 테스트에 많이 나옵니다.
+-- 참고 : nvl 함수 , decode 함수, case ~ when ~ end (관계식 비교) 예시 찾아보세요.
