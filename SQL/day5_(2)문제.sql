@@ -39,7 +39,6 @@ CONSTRAINT fk_buy_pcode
 
 
 -- 시퀀스 생성
-
 CREATE SEQUENCE seq_tblbuy
 START WITH 2001;
 
@@ -61,7 +60,14 @@ VALUES ('wonder',
 		'이나나', 
 		'lee@naver.com',
 		to_date('2024-12-31 23:58:59','yyyy-mm-dd hh24:mi:ss'));
-
+ /*   
+		또는 
+    VALUES ('wonder', 
+		'이나나', 
+		'lee@naver.com',
+    null,
+    to_date('2024-12-31 23:58:59', 'yyyy-mm-dd hh24:mi:ss'));
+*/
 SELECT * FROM TBL_CUSTOMER# tc ;
 	
 -- 상품 테이블 데이터 추가
@@ -106,3 +112,4 @@ INSERT INTO TBL_BUY VALUES
 SELECT * FROM TBL_BUY tb ;
 
 
+commit;
