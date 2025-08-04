@@ -17,7 +17,8 @@ VALUES
 	(1,'김모모','momo@naver.com',to_date('2022-11-24','yyyy-mm-dd'));  
 -- '2022-11-24' 기본 패턴은 날짜 타입 자동 변환
 
-INSERT INTO TBL_MEMBER VALUES (2,'박나연','parkny@gmail.com',to_date('2023-10-24','yyyy-mm-dd'));
+INSERT INTO TBL_MEMBER VALUES 
+(2,'박나연','parkny@gmail.com',to_date('2023-10-24','yyyy-mm-dd'));
 
 -- ⭕현재 세션에 대해 날짜 포맷 문자열 설정하기(vs code sql developer 는 직접 설정해야합니다.)
 ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD';
