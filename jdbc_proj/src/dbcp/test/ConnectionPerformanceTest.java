@@ -13,18 +13,21 @@ import vo.ProductVo;
 public class ConnectionPerformanceTest {
 
   public static void main(String[] args) {
-    // 애플리케이션 쪽에서 다수의 요청을 동시에 처리하는 스레드 풀 구현
-    ExecutorService executor = Executors.newFixedThreadPool(20);
-    TblProductDao dao = new TblProductDao(); // 1) 직접 연결방식 dao
-    // DBCPTblProductDao dao = new DBCPTblProductDao(); // 2) DBCP 방식 dao
+    // 1. 애플리케이션 쪽에서 다수의 요청을 동시에 처리하는 스레드 풀 구현
+    ExecutorService executor = Executors.newFixedThreadPool(10);
+
+    // 2. dao 동작 비교
+    // TblProductDao dao = new TblProductDao(); // 1) 직접 연결방식 dao - 평균 350ms
+    DBCPTblProductDao dao = new DBCPTblProductDao(); // 2) DBCP 방식 dao - 풀 생성후 평균 1.5ms
+
+    // 3. 총 50개의 요청을 처리
     for (int i = 0; i < 50; i++) {
+      // 4. 스레드가 동작할 내용을 람다식으로 submit 메소드에 작성
       executor.submit(() -> {
         long connStart = System.currentTimeMillis();
         // DBCP 는 5~10 개 size
-        // 2) DBConnectionPool.getDataSource().getConnection()
-        // 1) OracleConnection.getConnection()
-        try (Connection connection = OracleConnection.getConnection();) {
-          long connEnd = System.currentTimeMillis(); // 커넥션 생성 종료 시간
+        try {
+          long connEnd = System.currentTimeMillis(); // 커넥션 생성 종료 시간(무시)
           ProductVo vo = dao.selectByPk("APLE5kg");
           long totalEnd = System.currentTimeMillis(); // dao sql 실행 종료시간
           System.out.printf("ConnTime: %dms, ExecTime: %dms%n",
