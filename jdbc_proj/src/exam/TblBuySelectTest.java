@@ -54,14 +54,14 @@ public class TblBuySelectTest {
       ResultSet rs = pstat.executeQuery();
       // 순차적으로 결과 행 가져오기(n 회) - 컬럼값들 출력
       int count = 0;
-      while (rs.next()) {
+      while (rs.next()) { // 결과 집합의 다음 행으로 커서 이동. 행 있으면 참 없으면 거짓
         count++;
-        System.out.println(String.format("%4d \t%10s \t%10s \t%2d \t%s", rs.getInt(1) // 구매번호
+        System.out.println(String.format("%4d \t%10s \t%10s \t%2d \t%s" // 출력 포맷 설정
+            , rs.getInt(1) // 구매번호
             , rs.getString(2) // 고객 ID
             , rs.getString(3) // 상품코드
             , rs.getInt(4) // 구매 수량
-            , rs.getTimestamp(5))); // 구매 날짜
-
+            , rs.getTimestamp(5))); // 구매 날짜 rs.getDate(5) 로 하면 날짜만 출력
       }
       if (count == 0)
         System.out.println(customerid + " 회원 구매 내역이 없습니다.");
