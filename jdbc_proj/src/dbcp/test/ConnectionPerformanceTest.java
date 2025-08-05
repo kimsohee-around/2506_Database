@@ -1,24 +1,32 @@
 package dbcp.test;
 
 import java.sql.Connection;
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.ExecutorService; // concurrent : 동시성
 import java.util.concurrent.Executors;
 
-import vo.Product;
+import dao.TblProductDao;
+import dbcp.DBCPTblProductDao;
+import dbcp.DBConnectionPool;
+import util.OracleConnection;
+import vo.ProductVo;
 
 public class ConnectionPerformanceTest {
 
   public static void main(String[] args) {
-    ExecutorService executor = Executors.newFixedThreadPool(10);
-    // TblProductDao dao = new TblProductDao();
-    DBCPTblProductDao dao = new DBCPTblProductDao();
+    // 애플리케이션 쪽에서 다수의 요청을 동시에 처리하는 스레드 풀 구현
+    ExecutorService executor = Executors.newFixedThreadPool(20);
+    TblProductDao dao = new TblProductDao(); // 1) 직접 연결방식 dao
+    // DBCPTblProductDao dao = new DBCPTblProductDao(); // 2) DBCP 방식 dao
     for (int i = 0; i < 50; i++) {
       executor.submit(() -> {
         long connStart = System.currentTimeMillis();
-        try (Connection connection = DBConnectionPool.getDataSource().getConnection()) {
-          long connEnd = System.currentTimeMillis();
-          Product vo = dao.selectByPk("APLE5kg");
-          long totalEnd = System.currentTimeMillis();
+        // DBCP 는 5~10 개 size
+        // 2) DBConnectionPool.getDataSource().getConnection()
+        // 1) OracleConnection.getConnection()
+        try (Connection connection = OracleConnection.getConnection();) {
+          long connEnd = System.currentTimeMillis(); // 커넥션 생성 종료 시간
+          ProductVo vo = dao.selectByPk("APLE5kg");
+          long totalEnd = System.currentTimeMillis(); // dao sql 실행 종료시간
           System.out.printf("ConnTime: %dms, ExecTime: %dms%n",
               (connEnd - connStart), (totalEnd - connEnd));
         } catch (Exception e) {
