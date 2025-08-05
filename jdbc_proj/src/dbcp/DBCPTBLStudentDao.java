@@ -25,7 +25,7 @@ public class DBCPTBLStudentDao {
     } // finally 없음. 자동 close 구문
 
   }
-
+  
   public void insert(String stuno, String name, String age, String address) {
     String sql = "insert into tbl_student(stuno,name,age,address) values (?,?,?,?)";
     try (
@@ -44,6 +44,7 @@ public class DBCPTBLStudentDao {
         System.out.println("1개 행이 저장되었습니다.");
       conn.commit(); // autocommit 이 false 일 때 반드시 필요.
     } catch (SQLException e) {
+      // conn.rollback(); // 롤백을 하려면 try~catch~finally 사용해야 함.
       System.out.println("insert 예외 : " + e.getMessage());
     }
   }
