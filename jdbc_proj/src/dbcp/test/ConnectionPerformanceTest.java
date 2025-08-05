@@ -52,7 +52,10 @@ public class ConnectionPerformanceTest {
  * Executors.newFixedThreadPool(int n):
  * n개의 스레드를 미리 생성해두고, 작업이 들어오면 이 스레드들이 하나씩 처리합니다.
  * 스레드 수가 고정되어 있으므로, 동시에 실행 가능한 작업 수가 제한됩니다.
- * 초과된 작업은 큐에 저장되어 대기하다가 스레드가 비면 실행됩니다.
+ * 초과된 작업은 '큐'에 저장되어 대기하다가 스레드가 사용가능 해지면 실행됩니다.
+ * 자료구조
+ * : Stack 은 LIFO (마지막입력값을 가장 먼저 처리) . 기본 연산 처리 사용
+ * : Queue 는 FIFO (먼저 입력된 값을 먼저 처리). 대기열 구현 방식
  * 
  * ExecutorService executor = Executors.newFixedThreadPool(10);
  * 10개의 스레드를 가진 스레드 풀을 생성합니다.
@@ -61,7 +64,8 @@ public class ConnectionPerformanceTest {
  * 최대 10개의 작업이 🔥 동시에 실행됩니다.
  * 나머지 작업은 대기 큐에 들어갑니다.
  * 
- * 스레드 수를 너무 크게 설정하면 오히려 성능이 저하될 수 있습니다. CPU 코어 수와 작업 성격에 따라 적절히 조절해야 합니다.
+ * 스레드 수를 너무 크게 설정하면 오히려 성능이 저하될 수 있습니다.
+ * CPU 코어 수와 작업 성격에 따라 적절히 조절해야 합니다.
  * 작업이 끝난 후에는 반드시 executor.shutdown() 또는 executor.shutdownNow()로 스레드 풀을 종료해야
  * 합니다.
  */
