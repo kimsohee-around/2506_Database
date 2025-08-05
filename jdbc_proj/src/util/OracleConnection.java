@@ -16,10 +16,10 @@ public class OracleConnection {
   public static Connection getConnection() {
     Connection connection = null;
     try {
-      Class.forName("oracle.jdbc.driver.OracleDriver");
+      // Class.forName("oracle.jdbc.driver.OracleDriver");
       connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
       connection.setAutoCommit(false);
-    } catch (SQLException | ClassNotFoundException e) {
+    } catch (SQLException  e) {
       System.out.println("오라클 db 연결 실패 : " + e.getMessage());
     }
 
