@@ -8,8 +8,9 @@ import com.zaxxer.hikari.HikariDataSource;
 public class DBConnectionPool {
     private static final HikariDataSource dataSource;
 
-    static {
+    static {   // static 변수에 대해 필요한 실행 코드이므로 static 블록 사용
         HikariConfig config = new HikariConfig();
+        // 필수 설정
         config.setJdbcUrl("jdbc:oracle:thin:@//localhost:1521/xe");
         config.setUsername("c##idev");
         config.setPassword("1234");
@@ -29,7 +30,7 @@ public class DBConnectionPool {
     }
 }
 /*
- * ✅필요한 라이브러리
+ * ✅필요한 라이브러리 https://mvnrepository.com/ 에서 다운로드
  * : HikariCP 6.21.(com.zaxxer.hikari)
  * : HikariCP가 사용하는(의존성) 추가 기능 라이브러리 slf4j-api 2.0.16 slf4j-simple-2.0.16
  * 

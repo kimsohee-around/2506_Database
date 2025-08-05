@@ -7,12 +7,14 @@ import java.sql.SQLException;
 import javax.sql.DataSource;
 
 public class DBCPTBLStudentDao {
-
+  // DataSource 를 통해 Connection 객체 생성.
   private final DataSource dataSource = DBConnectionPool.getDataSource();
 
   public void updateAddress(String stuno, String address) {
     String sql = "update tbl_student set address = ? where stuno = ?";
     try ( // try with resources : 자동 close
+        // DBCP 를 제공하는 dataSource 로 Connection 객체 생성
+        // conn.close() 자원 종료가 아니라 자원 DBCP에 반납
         Connection conn = dataSource.getConnection();
         PreparedStatement pstat = conn.prepareStatement(sql);) {
       pstat.setString(1, address);
@@ -28,16 +30,19 @@ public class DBCPTBLStudentDao {
     String sql = "insert into tbl_student(stuno,name,age,address) values (?,?,?,?)";
     try (
         Connection conn = dataSource.getConnection();
-        // System.out.println("conn :" + conn.getAutoCommit());
         PreparedStatement pstat = conn.prepareStatement(sql);) {
 
+      conn.setAutoCommit(false);
+      System.out.println("conn autocommit:" + conn.getAutoCommit()); // 기본값은 true
       pstat.setString(1, stuno);
       pstat.setString(2, name);
       pstat.setString(3, age); // setInt(3,null) 불가. 오라클에서는 문자열을 number 타입으로 자동캐스팅
       pstat.setString(4, address);
 
-      pstat.executeUpdate();
-      System.out.println("1개 행이 저장되었습니다.");
+      int result = pstat.executeUpdate();
+      if (result != 0)
+        System.out.println("1개 행이 저장되었습니다.");
+      conn.commit(); // autocommit 이 false 일 때 반드시 필요.
     } catch (SQLException e) {
       System.out.println("insert 예외 : " + e.getMessage());
     }
