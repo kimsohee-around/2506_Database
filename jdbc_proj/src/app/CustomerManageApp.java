@@ -10,19 +10,31 @@ public class CustomerManageApp {
     boolean run = true;
     while (run) {
       System.out.println("선택 메뉴 : 1. 고객 등록   2. 고객 정보 조회");
+      System.out.println("       3. 고객 이메일 변경   4. 회원 탈퇴");
       String menu = System.console().readLine("메뉴 선택 >>>> ");
       switch (menu) {
         case "1":
           register();
           break;
         case "2":
-
+          printInfo();
           break;
         default:
           System.out.println("없는 메뉴 입니다.");
           break;
       }
     }
+  }
+
+  private static void printInfo() {
+    System.out.println("\t :: 고객 정보 조회 ::");
+    String customerid = System.console().readLine(" 아이디 입력 >>> ");
+    TblCustomerDao dao = new TblCustomerDao();
+    CustomerVo customer = dao.selectByPk(customerid); // select 결과를 Vo 객체로 리턴
+    System.out.println("[이름] " + customer.getName());
+    System.out.println("[이메일] " + customer.getEmail());
+    System.out.println("[나이] " + (customer.getAge() == 0 ? "미입력" : customer.getAge()));
+    System.out.println("[가입일자] " + customer.getRegDate());
   }
 
   private static void register() {
@@ -46,18 +58,18 @@ public class CustomerManageApp {
     run = true;
     while (run) {
       String temp = System.console().readLine("나이(미입력은 엔터) >>> ");
-      if (temp.length() == 0)
+      if (temp.length() == 0) // 엔터 입력
         break;
       try {
-        age = Integer.parseInt(temp);
-        if (age < 0 || age > 100) {
+        age = Integer.parseInt(temp); // 정상적인 나이
+        if (age < 0 || age > 100) { // 나이로 유효하지 않은 값
           // 강제로 예외 발생
           throw new Exception("나이 값은 0~100 입니다.");
         } else {
           run = false;
         }
       } catch (NumberFormatException e) {
-        System.out.println("나이는 숫자만 입력하세요.");
+        System.out.println("나이는 숫자만 입력하세요."); // 문자입력 했을 때
       } catch (Exception e) {
         System.out.println(e.getMessage());
       }

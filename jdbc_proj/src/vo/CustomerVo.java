@@ -21,5 +21,3 @@ public class CustomerVo {
     private Date regDate; // rs.getDate()
 
 }
-
-// ORM 프레임웍을 사용하면 기본생성자, setter 가 필요합니다.

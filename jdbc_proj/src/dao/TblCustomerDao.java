@@ -46,7 +46,7 @@ public class TblCustomerDao {
     return result;
   }
 
-  public int update(CustomerVo vo) {
+  public int update(CustomerVo vo) { // String email, String customerid 가능
     int result = 0;
     // 이메일 업데이트
     String sql = "UPDATE tbl_customer# SET email = ? WHERE customer_id = ?";
