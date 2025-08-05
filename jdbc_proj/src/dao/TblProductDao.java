@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import sql.PreparedStatementTest;
 import vo.ProductVo;
 
 public class TblProductDao {
@@ -44,7 +43,7 @@ public class TblProductDao {
   // 상품명, 가격 업데이트
   public int update(ProductVo vo) {
     int result = 0;
-    String sql = "UPDATE TBL_PRODOCT SET pname = ?, price = ? WHERE pcode = ?";
+    String sql = "UPDATE TBL_PRODUCT SET pname = ?, price = ? WHERE pcode = ?";
     try (Connection connection = getConnection();
         PreparedStatement pstmt = connection.prepareStatement(sql);) {
       pstmt.setString(1, vo.getPname());

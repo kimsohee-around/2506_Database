@@ -24,10 +24,11 @@ public class ProductManageApp {
           int result = dao.insert(vo);
           break;
         case "2":
-          String pcode = "";
+          String pcode = "LGLAPTop";
           dao = new TblProductDao();
           vo = dao.selectByPk(pcode);
           System.out.println("조회 결과 : " + vo);
+          break;
         case "3":
           vo = new ProductVo("LGLAPTop", null, "LG그램32GB", 505500);
           dao = new TblProductDao();
@@ -35,7 +36,7 @@ public class ProductManageApp {
           break;
         case "4":
           dao = new TblProductDao();
-          pcode = "LGLAPTop99";
+          pcode = "LGLAPTop";
           result = dao.delete(pcode);
           System.out.println("delete result : " + result);
           break;
