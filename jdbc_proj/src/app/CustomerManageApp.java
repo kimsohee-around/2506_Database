@@ -41,8 +41,27 @@ public class CustomerManageApp {
     }
     String name = System.console().readLine("성명 >>> ");
     String email = System.console().readLine("이메일 >>> ");
-    String temp = System.console().readLine("나이 >>> ");
-    int age = Integer.parseInt(temp);
+
+    int age = 0;
+    run = true;
+    while (run) {
+      String temp = System.console().readLine("나이(미입력은 엔터) >>> ");
+      if (temp.length() == 0)
+        break;
+      try {
+        age = Integer.parseInt(temp);
+        if (age < 0 || age > 100) {
+          // 강제로 예외 발생
+          throw new Exception("나이 값은 0~100 입니다.");
+        } else {
+          run = false;
+        }
+      } catch (NumberFormatException e) {
+        System.out.println("나이는 숫자만 입력하세요.");
+      } catch (Exception e) {
+        System.out.println(e.getMessage());
+      }
+    }
     // 예외 처리 NumberFormatException 필요 -> 나이 입력 부분만 while 로.
     // 🔥 dao 의 insert 실행
     CustomerVo vo = new CustomerVo(customerId, name, email, age, null);

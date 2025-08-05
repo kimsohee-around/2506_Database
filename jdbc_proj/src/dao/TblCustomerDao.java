@@ -34,13 +34,14 @@ public class TblCustomerDao {
       pstmt.setString(1, vo.getCustomerId());
       pstmt.setString(2, vo.getName());
       pstmt.setString(3, vo.getEmail());
-      pstmt.setInt(4, vo.getAge());
-
+      // 널 허용하는 컬럼이므로
+      pstmt.setObject(4, vo.getAge() == 0 ? null : vo.getAge());
       result = pstmt.executeUpdate(); // 정상적으로 행 추가하면 1 리턴
     } catch (Exception e) {
       // 롤백.
       // insert,update,delete 중 하나만 처리하는 경우는 롤백 안해도 됩니다.
       System.out.println("예외 : " + e.getMessage());
+      e.printStackTrace();
     }
     return result;
   }
