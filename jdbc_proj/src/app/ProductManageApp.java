@@ -14,12 +14,30 @@ public class ProductManageApp {
       System.out.println("\n선택 메뉴 : 1.  등록   2. 조회");
       System.out.println("       3.  변경   4.  삭제   5. 검색");
       String menu = System.console().readLine("메뉴 선택 >>>> ");
-      switch (menu) {
+      switch (menu) { // switch 문 case 의 변수 선언은 switch scope, 객체 사용은 case scope
         case "5":
           search();
           break;
+        case "1":
+          ProductVo vo = new ProductVo("LGLAPTop", "C1", "LG그램64GB", 125500);
+          TblProductDao dao = new TblProductDao();
+          int result = dao.insert(vo);
+          break;
         case "2":
-
+          String pcode = "";
+          dao = new TblProductDao();
+          vo = dao.selectByPk(pcode);
+          System.out.println("조회 결과 : " + vo);
+        case "3":
+          vo = new ProductVo("LGLAPTop", null, "LG그램32GB", 505500);
+          dao = new TblProductDao();
+          result = dao.update(vo);
+          break;
+        case "4":
+          dao = new TblProductDao();
+          pcode = "LGLAPTop99";
+          result = dao.delete(pcode);
+          System.out.println("delete result : " + result);
           break;
         default:
           System.out.println("없는 메뉴 입니다.");
