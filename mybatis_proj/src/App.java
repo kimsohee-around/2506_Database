@@ -5,7 +5,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         MybatisReCustomerDao dao = new MybatisReCustomerDao();
         int result = dao.insert(
-                new CustomerVo("hongGS", "홍길순", "hgs@a.com", 22, null));
+                new CustomerVo("hongGS", "hong gilS", "hgs@a.com", 22, null));
         System.out.println("insert result : " + result);
     }
 }

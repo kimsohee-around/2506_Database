@@ -25,27 +25,23 @@ public class MybatisReCustomerDao {
 	}
 
 	public int insert(CustomerVo vo) {
-		SqlSession sqlSession = sessionFactory.openSession();
-		int result = sqlSession.insert("tblcustomer.insert", vo);
-		// sqlSession.commit(); // autocommit 기본값 : false -> spring 에서 Service 클래스에서
-		// 트랜잭션 처리
-		sqlSession.close();
-		return result;
+		// autocommit 기본값 : false -> spring 에서 Service 클래스에서 트랜잭션 처리합니다.
+		// 우리는 spring 이 아니므로 오토 커밋 true로 하여 리팩토링
+		try (SqlSession sqlSession = sessionFactory.openSession(true)) {
+			return sqlSession.insert("tblcustomer.insert", vo);
+		}
 	}
 
 	public int update(CustomerVo vo) {
-		SqlSession sqlSession = sessionFactory.openSession();
-		int result = sqlSession.update("tblcustomer.update", vo);
-		sqlSession.close();
-		return result;
+		try (SqlSession sqlSession = sessionFactory.openSession(true)) {
+			return sqlSession.update("tblcustomer.update", vo);
+		}
 	}
 
 	public int delete(String customerId) {
-		SqlSession sqlSession = sessionFactory.openSession();
-		int result = sqlSession.delete("tblcustomer.delete", customerId);
-		// sqlSession.commit();
-		sqlSession.close();
-		return result;
+		try (SqlSession sqlSession = sessionFactory.openSession(true)) {
+			return sqlSession.delete("tblcustomer.delete", customerId);
+		}
 	}
 
 }
