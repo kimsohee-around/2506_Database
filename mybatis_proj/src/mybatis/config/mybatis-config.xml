@@ -12,6 +12,7 @@
   <typeAliases>
   		<typeAlias type="mybatis.vo.CustomerVo" alias="CustomerVo"/>
   		<typeAlias type="mybatis.vo.ProductVo" alias="ProductVo"/>
+  		<typeAlias type="mybatis.vo.StudentVo" alias="StudentVo"/>
   </typeAliases>
   
   <!--  jdbc 의 db 연결정보 -->
@@ -32,5 +33,6 @@
   <mappers>
     <mapper resource="mybatis/config/customer.xml"/>
     <mapper resource="mybatis/config/product.xml"/>
+    <mapper resource="mybatis/config/student.xml"/>
   </mappers>
 </configuration>

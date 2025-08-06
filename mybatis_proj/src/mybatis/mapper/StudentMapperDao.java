@@ -13,7 +13,9 @@ public class StudentMapperDao {
 
   public StudentVo selectByPk(String stuno) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession();) {
+      // SqlSession 이 StudentMapper 인터페이스의 구현 클래스와 객체를 생성.
       StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
+      // StudentMapper 인터페이스의 구현 메소드로 SQL 실행
       return mapper.selectByPk(stuno);
     }
   }
@@ -26,21 +28,21 @@ public class StudentMapperDao {
   }
 
   public int insert(StudentVo vo) {
-    try (SqlSession sqlSession = sqlSessionFactory.openSession();) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession(true);) {
       StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
       return mapper.insert(vo);
     }
   }
 
   public int update(StudentVo vo) {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
     StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
     sqlSession.close();
     return mapper.update(vo);
   }
 
   public int delete(String stuno) {
-    SqlSession sqlSession = sqlSessionFactory.openSession();
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
     StudentMapper mapper = sqlSession.getMapper(StudentMapper.class);
     sqlSession.close();
     return mapper.delete(stuno);
