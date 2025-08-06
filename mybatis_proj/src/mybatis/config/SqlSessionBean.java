@@ -7,6 +7,7 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+// 🔥 mybatis-3.5.16.jar 라이브러리 추가 (mvnrepository 에서 검색)
 public class SqlSessionBean {
 	/*
 	 * SQL 실행을 위한 기존 객체 : Connection 과 PreparedStatement

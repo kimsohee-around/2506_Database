@@ -10,8 +10,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class ProductVo {
-  private String pcode;
-  private String category;
-  private String pname;
-  private int price;
+  private final String pcode;
+  private final String category;
+  private final String pname;
+  private final int price;
 }
