@@ -10,16 +10,17 @@
       SELECT * FROM TBL_PRODUCT WHERE pcode = #{pcode}
    </select>
    <select id="selectByKeyword" parameterType="String" resultType="ProductVo">
+      <!-- n 개 행 집합을 결과로 예상한다면 resultType 은 컬렉션 자료구조의 제넉릭타입 -->
       select * from tbl_product where pname like '%' || #{keyword} ||'%'
    </select>
   <insert id="insert" parameterType="ProductVo">
    INSERT INTO TBL_PRODUCT(pcode, category, pname, price) 
       VALUES(#{pcode}, #{category}, #{pname}, #{price})
   </insert>
-  <update id="update" resultType="ProductVo">
+  <update id="update" parameterType="ProductVo">
    UPDATE TBL_PRODUCT SET pname = #{pname}, price = #{price} WHERE pcode = #{pcode}
   </update>
-  <delete id="delete" resultType="ProductVo">
+  <delete id="delete" parameterType="string">
    DELETE FROM tbl_product WHERE pcode = #{pcode}
   </delete>
 </mapper>   
