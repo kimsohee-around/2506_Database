@@ -46,7 +46,7 @@
     "tableEntities": {
       "HT46B5K7e9UM8VwspS6oG": {
         "id": "HT46B5K7e9UM8VwspS6oG",
-        "name": "tbl_customer",
+        "name": "tbl_customer#",
         "comment": "",
         "columnIds": [
           "6leUKnnV9lE2cKq-0LL4L",
@@ -67,12 +67,12 @@
           "x": 35,
           "y": 33,
           "zIndex": 2,
-          "widthName": 70,
+          "widthName": 77,
           "widthComment": 60,
           "color": ""
         },
         "meta": {
-          "updateAt": 1754221088399,
+          "updateAt": 1754384926963,
           "createAt": 1754220220252
         }
       },
