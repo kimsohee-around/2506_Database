@@ -15,12 +15,13 @@
    </select>
   <insert id="insert" parameterType="ProductVo">
    INSERT INTO TBL_PRODUCT(pcode, category, pname, price) 
-      VALUES(#{pcode}, #{category}, #{pname}, #{price})
+      VALUES(#{pcode}, #{category, jdbcType=VARCHAR}, #{pname}, #{price})
+      <!-- category 컬럼은 null 허용. 널 값 처리를 위해서 jdbcType=VARCHAR(NUMBERIC) 옵션 추가 -->
   </insert>
   <update id="update" parameterType="ProductVo">
    UPDATE TBL_PRODUCT SET pname = #{pname}, price = #{price} WHERE pcode = #{pcode}
   </update>
-  <delete id="delete" parameterType="string">
+  <delete id="delete" parameterType="string">  
    DELETE FROM tbl_product WHERE pcode = #{pcode}
   </delete>
-</mapper>   
+</mapper> 
