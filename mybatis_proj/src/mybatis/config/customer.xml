@@ -37,9 +37,10 @@
 </mapper>  
 <!-- 
 ✅ parameterType, resultType 이 클래스일 때, "패키지이름.클래스이름" 으로 해야 합니다.
-CustomerVo 는 TypeAlias(별칭) 를 설정하고 사용 중이며 그렇지 않다면 mybatis.vo.CustomerVo 로 해야 합니다.
+- CustomerVo 는 TypeAlias(별칭) 를 설정하고 사용 중이며 그렇지 않다면 mybatis.vo.CustomerVo 로 해야 합니다.
 String 은 기본 패키지 java.lang 에 속하는 클래스이므로 생략할 수 있습니다.
-(3.2버전 이후에는 jdk 클래스의 map 등의 별칭이 사용 가능함.)
+- 기본형 타입은 ⭕ https://mybatis.org/mybatis-3/ko/configuration.html 페이지 중간 별칭과 매핑된 타입 참고
+- (3.2버전 이후에는 jdk 클래스의 map 등의 별칭이 사용 가능함.)
 parameterType="map" 또는 "list" 또는 "collection"
 resultType="map" 
 -->
