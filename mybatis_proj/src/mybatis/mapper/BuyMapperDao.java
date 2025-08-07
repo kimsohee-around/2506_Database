@@ -42,6 +42,7 @@ public class BuyMapperDao {
     }
   }
 
+  // 조인과 집계함수
   public List<CustomerBuyVo> saleByCustomer(String customer_id) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       BuyMapper mapper = sqlSession.getMapper(BuyMapper.class);
@@ -53,6 +54,14 @@ public class BuyMapperDao {
     try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
       BuyMapper mapper = sqlSession.getMapper(BuyMapper.class);
       return mapper.selectCountByYear(year);
+    }
+  }
+
+  //
+  public List<Map<String, Object>> allCountByYear() {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      BuyMapper mapper = sqlSession.getMapper(BuyMapper.class);
+      return mapper.selectAllCountByYear();
     }
   }
 }

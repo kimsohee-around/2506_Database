@@ -25,7 +25,16 @@
     having  EXTRACT(YEAR FROM buy_date)=#{year}
   </select>
   
-  
+  <select id="selectAllCountByYear" resultType="map">
+    <!-- 집계 함수의 결과가 n개 행. 조회 컬럼 2개 일 때 map을 사용한다면....
+         여기서 map 은 최종 타입이 아니라 List 의 제너릭타입
+    -->
+    SELECT EXTRACT(YEAR FROM buy_date) AS year,  count(*) as count , sum(quantity) as sum
+    from TBL_BUY tb 
+    group by EXTRACT(YEAR FROM buy_date)
+    order by year
+  </select>
+
   <!-- 0806 문제 -->
   <select id="selectByCustomer" parameterType="string" resultType="BuyVo">
     SELECT *

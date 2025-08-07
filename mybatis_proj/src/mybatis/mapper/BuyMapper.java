@@ -20,4 +20,6 @@ public interface BuyMapper {
 
   // count 집계 함수
   Map<String, Integer> selectCountByYear(String year);
+
+  List<Map<String, Object>> selectAllCountByYear();
 }

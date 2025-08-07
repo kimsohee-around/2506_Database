@@ -1,5 +1,6 @@
 package mybatis.mapper;
 
+import java.util.List;
 import java.util.Map;
 
 public class BuyMapperTest {
@@ -16,6 +17,15 @@ public class BuyMapperTest {
     // year는 key, 2024는 값(value) ,count는 key, 3은 값(value)
     System.out.println(result.get("YEAR"));
     System.out.println(result.get("COUNT"));
+
+    System.out.println("-- 년도별 구매 건수 --");
+    // Map 에서는 오라클 타입 number 의 자리수가 없으면 값을 BigDecimal 로 가져옵니다.
+    // Map 의 제너릭타입을 Integer 사용 ❌  Object 로 대체. %d , %s 포맷 문자는 사용 못함.
+    List<Map<String, Object>> list = dao.allCountByYear();
+    System.out.println("년도\t구매건수\t수량합계");
+    for (Map<String, Object> one : list) {
+      System.out.println(one.get("YEAR") + "\t" + one.get("COUNT") + "\t\t" + one.get("SUM"));
+    }
 
   }
   /*
