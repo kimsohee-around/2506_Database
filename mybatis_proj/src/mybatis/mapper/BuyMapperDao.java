@@ -1,19 +1,21 @@
 package mybatis.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import mybatis.config.SqlSessionBean;
 import mybatis.vo.BuyVo;
+import mybatis.vo.CustomerBuyVo;
 
 public class BuyMapperDao {
   private SqlSessionFactory sqlSessionFactory = SqlSessionBean.getSessionFactory();
 
   public List<BuyVo> selectByCustomer(String customerId) {
     try (SqlSession sqlSession = sqlSessionFactory.openSession();) {
-  // BuyMapper 인터페이스의 구현체(클래스로 만든 객체)는 SqlSession 객체가 getMapper 메소드로 만듭니다.
+      // BuyMapper 인터페이스의 구현체(클래스로 만든 객체)는 SqlSession 객체가 getMapper 메소드로 만듭니다.
       BuyMapper mapper = sqlSession.getMapper(BuyMapper.class);
       return mapper.selectByCustomer(customerId);
     }
@@ -40,4 +42,17 @@ public class BuyMapperDao {
     }
   }
 
+  public List<CustomerBuyVo> saleByCustomer(String customer_id) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      BuyMapper mapper = sqlSession.getMapper(BuyMapper.class);
+      return mapper.selectSaleByCustomer(customer_id);
+    }
+  }
+
+  public Map<String, Integer> countByYear(String year) {
+    try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+      BuyMapper mapper = sqlSession.getMapper(BuyMapper.class);
+      return mapper.selectCountByYear(year);
+    }
+  }
 }

@@ -14,6 +14,7 @@
   		<typeAlias type="mybatis.vo.ProductVo" alias="ProductVo"/>
   		<typeAlias type="mybatis.vo.StudentVo" alias="StudentVo"/>
   		<typeAlias type="mybatis.vo.BuyVo" alias="BuyVo"/>
+  		<typeAlias type="mybatis.vo.CustomerBuyVo" alias="CustomerBuyVo"/>
   </typeAliases>
   
   <!--  jdbc 의 db 연결정보 -->

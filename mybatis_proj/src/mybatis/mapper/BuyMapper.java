@@ -1,8 +1,10 @@
 package mybatis.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import mybatis.vo.BuyVo;
+import mybatis.vo.CustomerBuyVo;
 
 public interface BuyMapper {
   List<BuyVo> selectByCustomer(String customer_id);
@@ -13,4 +15,9 @@ public interface BuyMapper {
 
   int selectSumByPcode(String pcode);
 
+  // join
+  List<CustomerBuyVo> selectSaleByCustomer(String customer_id);
+
+  // count 집계 함수
+  Map<String, Integer> selectCountByYear(String year);
 }

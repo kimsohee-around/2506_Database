@@ -65,7 +65,8 @@ and to_char(tb.BUY_DATE,'yyyy')='2024';   -- extract(year from tb.BUY_DATE) ='20
 SELECT EXTRACT(YEAR FROM buy_date) AS "년도",  count(*) as "건수"
 FROM TBL_BUY tb 
 GROUP BY EXTRACT(YEAR FROM buy_date)
-ORDER BY "년도";
+having  EXTRACT(YEAR FROM buy_date)=2023;
+-- ORDER BY "년도";
 
 -- 2) 년도별 and pcode 상품별(년도가 같을 때) 구매 건수 집계하기
 SELECT EXTRACT(YEAR FROM buy_date) AS "년도", PCODE ,count(*) as "년도/상품건수"
