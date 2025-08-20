@@ -1,3 +1,6 @@
+-- 0. 글 목록 -> 페이징 기능으로 대체
+SELECT * FROM COMMUNITY ORDER BY idx desc;
+
 -- 1. 메인글 107번 글 상세보기
 SELECT * FROM COMMUNITY c WHERE IDX = 107;
 

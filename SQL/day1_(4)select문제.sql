@@ -219,3 +219,5 @@ SELECT * FROM TBL_CARDATA WHERE car LIKE '%Mercedes%';
 
 -- 제조사가 A로 시작하는 차량을 골라오시게
 SELECT * FROM TBL_CARDATA WHERE car LIKE 'A%';
+
+select * from tbl_carco2 where upper(car) like upper('%merce%');
