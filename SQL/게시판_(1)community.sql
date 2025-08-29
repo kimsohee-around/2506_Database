@@ -18,7 +18,7 @@ CREATE TABLE community (
 	readCount number(10) DEFAULT '0',
 	createdAt DATE DEFAULT sysdate,
 	ip varchar2(15) DEFAULT '127.0.0.1',
-	commentCount number(6) DEFAULT '0',
+	commentCount number(6) DEFAULT '0',   -- 댓글 갯수 : 편의상 컬럼을 추가
 	PRIMARY KEY(idx)
 );
 
@@ -52,3 +52,6 @@ INSERT INTO community (idx,writer,title,content)
 VALUES (community_idx_seq.nextval, 'tom0099','달의 아이','결론이 예측되지 않아서 더 집중해서 봤어요.하나의 재난을 극복하기 위한 이겨내기 위한 서로 다른 선택..그들의 선택에 생각을 많이 하게 되네요');
 INSERT INTO community (idx,writer,title,content)
 VALUES (community_idx_seq.nextval, 'minkr','결혼 피로연','잘읽었습니다잘읽었습니다');
+
+select count(*) from COMMUNITY;
+commit;

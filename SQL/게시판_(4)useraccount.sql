@@ -25,3 +25,7 @@ INSERT INTO user_account (userid, username, password, birth, gender, email)
 VALUES   ('nara34','정나라','1111','1988-01-11','M','nara34@gmail.com');
 INSERT INTO user_account (userid, username, password, birth, gender, email) 
 VALUES   ('kevin','오케빈','1111','1988-03-22','M','kevin@naver.com');
+
+
+
+

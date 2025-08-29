@@ -27,21 +27,34 @@ UPDATE COMMUNITY SET COMMENTCOUNT = (SELECT count(*) FROM COMMUNITYCOMMENTS cc W
 -- 게시판 글 조회 순서는 idx 내림차순
 SELECT * FROM COMMUNITY c ORDER BY idx DESC ;
 
--- idx는 항상 연속적이지 않다(글 삭제 떄문에), 글 순서에 대한 연속적인 값이 필요 -> mysql(LIMIT), 오라클(rownum 컬럼을 활용)
--- 자바에서 계산할 계산식
--- start 번호 = (페이지번호-1)*페이지당글개수+1
--- end 번호 = start번호+(페이지당글개수-1)
-SELECT rownum, temp.* FROM (SELECT * FROM COMMUNITY c ORDER BY idx DESC) temp WHERE rownum BETWEEN 1 AND 20;
+-- idx는 항상 연속적이지 않다(글 삭제 떄문에), 글 순서에 대한 연속적인 값이 필요 -> mysql(LIMIT), 오라클(rownum 시스템 컬럼을 활용)
+
+-- SQL (1)
+SELECT rownum, temp.* FROM (SELECT * FROM COMMUNITY c ORDER BY idx DESC) temp ;
+
+
+-- SQL (2) 
+SELECT rownum, temp.* FROM (SELECT * FROM COMMUNITY c ORDER BY idx DESC) temp WHERE rownum BETWEEN 11 AND 20;
 
 -- 페이지네이션 글목록 완료: startNo=21, endNo=40 => 계산한 값으로 전달
 -- rownum은 각 실행마다 테이블화 해서 메모리 저장하면서 안정적으로 동작(별칭도 필수)
+-- SQL (3) : 위의 (2)번은 WHERE rownum BETWEEN 11 AND 20 중간값 가져오는 동작을 못합니다.(rownum 특징)
 SELECT * 
 FROM 
 (SELECT rownum rnum, temp.* FROM 
           (SELECT * FROM COMMUNITY c ORDER BY idx DESC) temp
 ) 
-WHERE rnum BETWEEN 21 AND 40;
+WHERE rnum BETWEEN 11 AND 20;
 
+-- 자바에서 계산할 계산식(int page => 페이지 번호)
+-- start 번호 = (페이지번호-1)*페이지당글개수+1
+-- end 번호 = start번호+(페이지당글개수-1)
+/*  단, 1개 페이지 10개의 글목록을 갖는 경우 입니다.
+  1 페이지 : BETWEEN 1 AND 10
+  2 페이지 : BETWEEN 11 AND 20
+  3 페이지 : BETWEEN 21 AND 30
+  4 페이지 : BETWEEN 31 AND 40
+*/
 --8. 글 쓰기
 
 --9. 글 삭제
